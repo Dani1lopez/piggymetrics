@@ -4,11 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>auth-service</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>auth-service</name>
 
     <parent>
@@ -17,45 +15,26 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <!-- Agregar Guava explícitamente -->
+    <!-- Agregar Guava para evitar errores de dependencias -->
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>32.1.3-jre</version>
         </dependency>
-
-        <!-- Otras dependencias existentes -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
-        <!-- ... (el resto de tus dependencias) ... -->
+        <!-- Otras dependencias existentes... -->
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>local-db</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>de.flapdoodle.embed</groupId>
-                    <artifactId>de.flapdoodle.embed.mongo</artifactId>
-                    <version>4.9.0</version> <!-- Versión compatible con Java 17 -->
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>
-            <!-- Plugin Spring Boot (versión actualizada) -->
+            <!-- Plugin de Spring Boot (configuración crítica) -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.7.15</version>
+                <configuration>
+                    <mainClass>com.piggymetrics.auth.AuthApplication</mainClass> <!-- Clase principal -->
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -65,43 +44,11 @@
                 </executions>
             </plugin>
 
-            <!-- Plugin Surefire (actualizado para Java 17) -->
+            <!-- Plugin Surefire (para tests) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
-            </plugin>
-
-            <!-- Plugin Jacoco (versión compatible) -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Configuración de Java 17 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>17</source>
-                    <target>17</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>
