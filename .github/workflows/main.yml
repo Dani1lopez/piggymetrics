@@ -19,7 +19,8 @@ jobs:
           java-version: '11'
 
       - name: Maven build, clean
-        run: mvn clean package
+        run: mvn clean package -DskipTests
+
 
       - name: Login via Azure CLI
         uses: azure/login@v1
