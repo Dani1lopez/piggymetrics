@@ -95,16 +95,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!-- Versión heredada del parent, si la define. 
-                     Si no, especificar aquí la versión que uses -->
                 <configuration>
-                    <finalName>auth-service</finalName>
-                    <!-- Forzar la detección de la clase principal (opcional, 
-                         pero útil si no se detecta automáticamente) -->
                     <mainClass>com.piggymetrics.auth.AuthApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>repackage</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
@@ -112,7 +109,7 @@
                 </executions>
             </plugin>
 
-            <!-- Plugin Jacoco para coverage -->
+            <!-- Plugin Jacoco para cobertura de código -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
