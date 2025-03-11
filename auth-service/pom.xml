@@ -91,6 +91,13 @@
 				<configuration>
 					<finalName>auth-service</finalName>
 				</configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
