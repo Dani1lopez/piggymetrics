@@ -1,0 +1,37 @@
+name: AzureSpringApps
+on: push
+env:
+  ASC_PACKAGE_PATH: ${{ github.workspace }}
+  AZURE_SUBSCRIPTION: "ae0f6124-88af-47e1-903a-0e6ba52e5972"
+
+jobs:
+  deploy_to_production:
+    runs-on: ubuntu-latest
+    name: Deploy to Production with Artifact
+    steps:
+      - name: Checkout GitHub Action
+        uses: actions/checkout@v2
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Maven build, clean
+        run: mvn clean package
+
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Production with Artifact
+        uses: azure/spring-apps-deploy@v1
+        with:
+          azure-subscription: ${{ env.AZURE_SUBSCRIPTION }}
+          action: Deploy
+          service-name: miinstanciaspringapps
+          app-name: "miapp-spring"   # Reemplaza con el nombre que desees para tu app
+          use-staging-deployment: false
+          package: ${{ env.ASC_PACKAGE_PATH }}/**/*.jar
