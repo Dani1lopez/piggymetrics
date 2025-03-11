@@ -21,7 +21,6 @@ jobs:
       - name: Maven build, clean
         run: mvn clean package -DskipTests
 
-
       - name: Login via Azure CLI
         uses: azure/login@v1
         with:
@@ -33,6 +32,6 @@ jobs:
           azure-subscription: ${{ env.AZURE_SUBSCRIPTION }}
           action: Deploy
           service-name: miinstanciaspringapps
-          app-name: "miapp-spring"   # Reemplaza con el nombre que desees para tu app
+          app-name: "miapp-spring"   # Reemplaza con el nombre deseado para tu app
           use-staging-deployment: false
-          package: ${{ env.ASC_PACKAGE_PATH }}/**/*.jar
+          package: ${{ env.ASC_PACKAGE_PATH }}/auth-service/target/auth-service-*.jar
