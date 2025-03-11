@@ -19,7 +19,8 @@ jobs:
           java-version: '11'
 
       - name: Maven build, clean
-        run: mvn clean spring-boot:repackage -DskipTests
+        run: mvn clean spring-boot:repackage -pl auth-service -am -DskipTests
+
 
       - name: Login via Azure CLI
         uses: azure/login@v1
